@@ -43,9 +43,22 @@ const getCategoryById = async (req, res) =>{
 
 const updateCategory = async (req, res)=>{
     try {
+        const category_id = parseInt(req.params.id);
+        const {category_name, number_of_blogs} = req.body;
+        let category = await pool.query(
+            "UPDATE categories SET category_name = $1, number_of_blogs = $2 WHERE category_id = $3",
+            [category_name, number_of_blogs]
+        );
         
     } catch (error) {
         console.log(error.message);
         
     }
-}
+};
+
+// DELETE category
+const deleteCategory = async (req, res)=>{
+
+}; 
+
+module.exports = {addCategory, getAllCategories, getCategoryById, updateCategory, deleteCategory};

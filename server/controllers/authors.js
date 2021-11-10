@@ -33,7 +33,7 @@ const getAuthorById= async(req, res) => {
         const author_id = parseInt(req.params.id);
         console.log(author_id);
         let authors= await pool.query("SELECT * FROM authors WHERE author_id = $1 ",[author_id]);
-        console.log("authors.rows");
+        console.log(authors.rows);
         if(authors.rows.length===0){
           console.log("empty")
           }
@@ -51,14 +51,15 @@ const getAuthorById= async(req, res) => {
 const updateAuthor = async (req, res)=>{
   try {
     const author_id = parseInt(req.params.id);
+    console.log(author_id);
     const  {firstName, lastName, email, password, image} = req.body;
+    console.log( req.body);
+
     let authors = await pool.query(
-      "UPDATE authors SET firstName = $1, lastName = $2, email = $3, password = $4, image = $5 WHERE  author_id= $6",
+      "UPDATE authors SET firstName = $1, lastName = $2, email = $3, password = $4, image = $5 WHERE author_id= $6",
       [firstName, lastName, email, password, image, author_id]
     );
-    if (err){
-      throw err;
-    }
+    console.log(authors);
     res.status(200).json(authors);
     
   } catch (error) {

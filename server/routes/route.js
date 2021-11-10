@@ -6,7 +6,13 @@ const {
     getAuthorById,
     getAllAuthors,
     updateAuthor,
-    deleteAuthor
+    deleteAuthor,
+    addCategory,
+    getAllCategories,
+    getCategoryById,
+    updateCategory,
+    deleteCategory
+
 } = require('../controllers/authors');
 
 
@@ -20,5 +26,9 @@ router.delete('/author/:id', deleteAuthor);
 
 // category end points
 
-
+router.get('/category',getAllCategories)
+router.get('/category/:id', getCategoryById);
+router.post('/category', addCategory);
+router.put('/category/:id', updateCategory);
+router.delete('/category/:id', deleteCategory);
 module.exports = router;
