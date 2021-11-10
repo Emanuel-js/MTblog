@@ -6,15 +6,16 @@ const {
     getAuthorById,
     getAllAuthors,
     updateAuthor,
-    deleteAuthor,
+    deleteAuthor
+    
+} = require('../controllers/authors');
+const{
     addCategory,
     getAllCategories,
     getCategoryById,
     updateCategory,
     deleteCategory
-
-} = require('../controllers/authors');
-
+}=require('../controllers/categories')
 
 const router= express.Router();
 // authors end points
