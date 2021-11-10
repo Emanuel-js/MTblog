@@ -7,10 +7,7 @@ CREATE TABLE  admin(
   firstName VARCHAR(255),
   lastName VARCHAR(255),
   email VARCHAR(255),
-  password VARCHAR(16),
-
-
-
+  password VARCHAR(16)
 );
 
 CREATE TABLE authors(
@@ -20,13 +17,17 @@ CREATE TABLE authors(
   email VARCHAR(255),
   password VARCHAR(16),
   image VARCHAR(255)
-
-
 );
 
 CREATE TABLE tags(
   tags_id SERIAL PRIMARY KEY,
   tags_name VARCHAR(255)
+);
+
+CREATE TABLE  categories(
+  category_id SERIAL PRIMARY KEY,
+  category_name VARCHAR(255),
+  number_of_blogs INTEGER
 );
 
 CREATE TABLE blogs(
@@ -36,17 +37,11 @@ CREATE TABLE blogs(
     body text,
     image VARCHAR(1000),
     -- tags_id TEXT REFERENCES tags(tags_id),
-    ispublished BOOLEAN,
+    isPublished BOOLEAN,
     author_id INT REFERENCES authors(author_id),
     category_id INT REFERENCES categories(category_id),
-    date_created TIMESTAMP
-    
-    
+    date_created TIMESTAMP,
+    isFeatured BOOLEAN
 );
 
-CREATE TABLE  categories(
-  category_id SERIAL PRIMARY KEY,
-  category_name VARCHAR(255),
-  number_of_blogs INTEGER,
 
-);

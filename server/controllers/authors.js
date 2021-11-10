@@ -5,7 +5,7 @@ const addAuthor = async (req, res) => {
   try{
       const {firstName, email, password, image} = req.body;
       let author = await pool.query(
-          "INSERT INTO authors (firstName,firstName, email, password, image) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+          "INSERT INTO authors (firstName, lastName, email, password, image) VALUES ($1, $2, $3, $4, $5) RETURNING *",
           [firstName,firstName, email, password, image]
       );
       res.json(author);
