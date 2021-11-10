@@ -6,13 +6,10 @@ const {
     getAuthorById,
     getAllAuthors,
     updateAuthor,
-    deleteAuthor,
+    deleteAuthor
     
-
 } = require('../controllers/authors');
-
-
-const {
+const{
     addCategory,
     getAllCategories,
     getCategoryById,
