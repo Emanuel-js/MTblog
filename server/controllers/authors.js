@@ -4,12 +4,12 @@ const pool= require('../queries');
 const addAuthor = async (req, res) => {
   try{
       const {firstname,lastname, email, password, image} = req.body;
-      const author = await pool.query(
+      let author = await pool.query(
           "INSERT INTO authors (firstname,lastname, email, password, image) VALUES ($1, $2, $3, $4, $5) RETURNING *",
           [firstname,lastname, email, password, image]
       );
       res.json(author);
-      console.log("Server runing");
+   
   } catch (err){
       console.error(err.message);
   }
@@ -26,7 +26,7 @@ const addAuthor = async (req, res) => {
 //     }
 
 // };
-const getAllAuthorById= async(req, res) => {
+const getAuthorById= async(req, res) => {
    
     try{
         const {query}=req.params;
@@ -44,4 +44,4 @@ const getAllAuthorById= async(req, res) => {
 };
 
 
-module.exports = {addAuthor, getAllAuthorById};
+module.exports = {addAuthor, getAuthorById};

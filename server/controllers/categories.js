@@ -1,5 +1,5 @@
 const pool = require('../queries');
-
+//  add category to mtblog db
 const addCategory = async (req, res) =>{
     try {
         const {category_name, number_of_blogs} = req.body;
@@ -15,7 +15,7 @@ const addCategory = async (req, res) =>{
         
     }
 };
-
+// get all categories from mtblog db
 const getAllCategories = async (req, res)=>{
     try {
         // const {query} = req.params;
@@ -25,7 +25,7 @@ const getAllCategories = async (req, res)=>{
         console.log(error.message);
     }
 };
-
+//  get category By Id
 const getCategoryById = async (req, res) =>{
    try{ 
         const {query} = req.params;
@@ -38,3 +38,14 @@ const getCategoryById = async (req, res) =>{
         console.log(error.message);
     }
 };
+
+// update categories that are in the mtblog db 
+
+const updateCategory = async (req, res)=>{
+    try {
+        
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+}

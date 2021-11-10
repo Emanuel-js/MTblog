@@ -1,9 +1,13 @@
-const {Router} = require('express');
-
-const router= Router();
-const {addAuthor, getAuthorById} = require('../controllers/authors');
+const express = require('express');
 
 
+const {
+    addAuthor, 
+    getAuthorById
+} = require('../controllers/authors');
+
+
+const router= express.Router();
 
 router.get('/authors/:id', getAuthorById);
 router.post('/authors', addAuthor);
