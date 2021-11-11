@@ -2,13 +2,17 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const pool = require('./database/db');
-
+const auth = require('./middleware/auth');
 const router = require('./routes/route');
+const dotenv = require("dotenv");
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extends:false}));
 app.use(cors());
+
+dotenv.config();
+
 
 const port = process.env.PORT || 5000;
 
