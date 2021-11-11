@@ -3,6 +3,7 @@ const pool = require('../queries');
 const addCategory = async (req, res) =>{
     try {
         const {category_name, number_of_blogs} = req.body;
+        console.log(req.body);
         const category = await pool.query(
             "INSERT INTO categories (category_name, number_of_blogs) VALUES ($1, $2) RETURNING *",
             [category_name, number_of_blogs]
@@ -58,6 +59,18 @@ const updateCategory = async (req, res)=>{
 
 // DELETE category
 const deleteCategory = async (req, res)=>{
+    try {
+        const category_id = parseInt(req.params.id);
+        const category = await pool.query(
+            "DELETE FROM categories WHERE category_id = $1",
+            [category_id]
+        );
+        res.status(200).json(category);
+        
+    } catch (error) {
+        console.log(error.message);
+        
+    }
 
 }; 
 

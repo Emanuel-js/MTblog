@@ -32,4 +32,6 @@ router.get('/category/:id', getCategoryById);
 router.post('/category', addCategory);
 router.put('/category/:id', updateCategory);
 router.delete('/category/:id', deleteCategory);
+
+
 module.exports = router;
