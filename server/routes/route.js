@@ -1,6 +1,5 @@
 const express = require('express');
 
-
 const {
     addAuthor, 
     getAuthorById,
@@ -26,6 +25,12 @@ getAllBlogs,
     deleteBlog
 } = require('../controllers/blogs');
 
+const{
+    loginAdmin,
+    registerAdmin, 
+    logout
+}=require('../controllers/admin');
+const { verify } = require('jsonwebtoken');
 
 
 const router= express.Router();
@@ -50,4 +55,11 @@ router.get('/blogs/:id', getBlogById);
 router.post('/blogs', addBlog);
 router.put('/blogs/:id', updateBlog);
 router.delete('/blogs/:id', deleteBlog);
+
+//admin end points
+router.post('/loginAdmin', loginAdmin);
+router.post('/registerAdmin', registerAdmin);
+router.get('/logout', verify, logout);
+
+
 module.exports = router;

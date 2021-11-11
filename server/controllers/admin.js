@@ -1,3 +1,5 @@
+const pool= require('../queries');
+
 const { registerAdminValidation, loginAdminValidation } = require('../middleware/validate')
 const bcrypt = require('bcryptjs');
 const { JsonWebTokenError } = require('jsonwebtoken');
@@ -6,6 +8,9 @@ const jwt = require('jsonwebtoken');
 
 const loginAdmin = async (req, res) => {
     const { error } = loginAdminValidation(req.body);
+    if (error) {
+        return res.status(400).send((error.details[0].message).toString());
+    }
    
     let admin= await pool.query("SELECT * FROM admin WHERE email = $1 ",[req.body.email]);
 
@@ -14,17 +19,18 @@ const loginAdmin = async (req, res) => {
         return res.status(400).send('Email or password is incorrect');
     }
 
-    const validPass = await bcrypt.compare(req.body.password, admin.password);
+    const validPass = await bcrypt.compare(req.body.password, admin.rows[0].password);
+    console.log(admin.rows[0].password);
     if (!validPass) {
         return res.status(400).send('Email or password is incorrect');
     }
 
     const token = jwt.sign({
-        id: admin.id
+        id: admin.rows[0].admin_id
     }, process.env.TOKEN_SECRET)
     const result = {
         role: 'admin',
-        id: admin.id,
+        id: admin.rows[0].admin_id,
         token: token
     };
 
@@ -39,7 +45,7 @@ const registerAdmin = async (req, res) => {
     }
      let emailExist= await pool.query("SELECT * FROM admin WHERE email = $1 ",[req.body.email]);
    
-    if (emailExist) {
+    if (emailExist.rows.length!==0) {
         return res.status(400).send('Email already exists');
     }
 
@@ -49,8 +55,8 @@ const registerAdmin = async (req, res) => {
     try{
       
       let admin = await pool.query(
-          "INSERT INTO admin (firstName,lastName, email, password, image) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-          [firstName,lastName, email, password]
+          "INSERT INTO admin (firstName,lastName, email, password) VALUES ($1, $2, $3, $4) RETURNING *",
+          [firstName,lastName, email, hashedPassword]
       );
 
       const token = jwt.sign({
