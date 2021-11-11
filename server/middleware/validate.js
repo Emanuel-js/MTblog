@@ -55,4 +55,4 @@ const loginAdminValidation=(data)=>{
     return Joi.validate(data, schema);
 }
 
-module.exports = {registerAdminValidation, registerAuthorValidation, registerBlogValidation, registerCategoryValidation, loginAdminValidation}
+module.exports = {registerAdminValidation, registerAuthorValidation, registerBlogValidation, registerCategoryValidation, loginAdminValidation};
