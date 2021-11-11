@@ -1,8 +1,15 @@
 const pool= require('../queries');
+const {registerAuthorValidation}= require('../middleware/validate');
+
 
 // Create authors
 const addAuthor = async (req, res) => {
+
   try{
+      const {error} = registerAuthorValidation(req.body);
+       if (error) {
+        return res.status(400).send((error.details[0].message).toString());
+      }
       const {firstName, lastName, email, password, image} = req.body;
       let author = await pool.query(
           "INSERT INTO authors (firstName,lastName, email, password, image) VALUES ($1, $2, $3, $4, $5) RETURNING *",
@@ -50,6 +57,10 @@ const getAuthorById= async(req, res) => {
 
 const updateAuthor = async (req, res)=>{
   try {
+    const {error} = registerAuthorValidation(req.body);
+       if (error) {
+        return res.status(400).send((error.details[0].message).toString());
+      }
     const author_id = parseInt(req.params.id);
     console.log(author_id);
     const  {firstName, lastName, email, password, image} = req.body;

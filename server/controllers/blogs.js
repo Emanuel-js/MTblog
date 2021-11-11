@@ -1,9 +1,13 @@
 const pool = require('../queries');
-
+const {registerBlogValidation} = require('../middleware/validate');
 
 //addBlog 
 const addBlog = async (req, res) =>{
     try {
+        const {error} = registerBlogValidation(req.body);
+        if (error) {
+            return res.status(400).send((error.details[0].message).toString());
+        }
         const {title, description, body, image, author_id, category_id, isFeatured, isPublished} = req.body;
         const date_created = Date.now()
         const blog = await pool.query(
@@ -45,6 +49,10 @@ const getBlogById = async (req, res) =>{
 // update blogs that are in the mtblog db 
 const updateBlog = async (req, res)=>{
     try {
+        const {error} = registerBlogValidation(req.body);
+        if (error) {
+            return res.status(400).send((error.details[0].message).toString());
+        }
         const blog_id = parseInt(req.params.id);
         const {title, description, body, image, author_id, category_id, isFeatured, isPublished} = req.body;
         let blog = await pool.query(

@@ -1,7 +1,12 @@
 const pool = require('../queries');
+const {registerCategoryValidation} = require('../middleware/validate');
 //  add category to mtblog db
 const addCategory = async (req, res) =>{
     try {
+        const {error} = registerCategoryValidation(req.body);
+        if (error) {
+            return res.status(400).send((error.details[0].message).toString());
+        }
         const {category_name, number_of_blogs} = req.body;
         console.log(req.body);
         const category = await pool.query(
@@ -44,6 +49,10 @@ const getCategoryById = async (req, res) =>{
 
 const updateCategory = async (req, res)=>{
     try {
+        const {error} = registerCategoryValidation(req.body);
+        if (error) {
+            return res.status(400).send((error.details[0].message).toString());
+        }
         const category_id = parseInt(req.params.id);
         const {category_name, number_of_blogs} = req.body;
         let category = await pool.query(
