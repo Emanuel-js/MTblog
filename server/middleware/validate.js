@@ -34,6 +34,15 @@ const registerCategoryValidation=(data)=>{
     return Joi.validate(data, schema);
 }
 
+const registerTagValidation=(data)=>{
+    const schema ={
+        tag_name: Joi.string().min(2).required(),
+       
+       
+    }
+    return Joi.validate(data, schema);
+}
+
 const registerBlogValidation=(data)=>{
     const schema ={
         title: Joi.string().min(2).required(),
@@ -56,4 +65,4 @@ const loginAdminValidation=(data)=>{
     return Joi.validate(data, schema);
 }
 
-module.exports = {registerAdminValidation, registerAuthorValidation, registerBlogValidation, registerCategoryValidation, loginAdminValidation};
+module.exports = {registerAdminValidation, registerAuthorValidation, registerBlogValidation, registerCategoryValidation, loginAdminValidation, registerTagValidation};
