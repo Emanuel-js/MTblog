@@ -14,8 +14,7 @@ const registerAdminValidation=(data)=>{
 
 const registerAuthorValidation=(data)=>{
     const schema ={
-        firstName: Joi.string().min(2).required(),
-        lastName: Joi.string().min(2).required(),
+        fullName: Joi.string().min(2).required(),
         email: Joi.string().min(6).required().email(),
         password: Joi.string().min(6).required(),
         image: Joi.string().min(4).required(),
@@ -49,6 +48,12 @@ const registerBlogValidation=(data)=>{
         description: Joi.string().min(2).required(),
         body: Joi.string().min(8).required(),
         image: Joi.string().min(4).required(),
+        isPublished : Joi.boolean(),
+        category_name:Joi.string(),
+        author_names: Joi.array(),
+        tag_names: Joi.array(),
+        isFeatured : Joi.boolean(),
+
 
     }
     return Joi.validate(data, schema);
