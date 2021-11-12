@@ -3,7 +3,7 @@ CREATE DATABASE mtblog;
 
 
 CREATE TABLE  admin(
-  admin_id SERIAL PRIMARY KEY,
+  admin_id BIGSERIAL PRIMARY KEY,
   firstName VARCHAR(255),
   lastName VARCHAR(255),
   email VARCHAR(255),
@@ -11,9 +11,8 @@ CREATE TABLE  admin(
 );
 
 CREATE TABLE authors(
-  author_id SERIAL PRIMARY KEY,
-  firstName VARCHAR(255),
-  lastName VARCHAR(255),
+  author_id BIGSERIAL PRIMARY KEY,
+  fullName VARCHAR(255),
   email VARCHAR(255),
   password VARCHAR(16),
   image VARCHAR(255)
@@ -21,13 +20,13 @@ CREATE TABLE authors(
 
 
 CREATE TABLE  categories(
-  category_id SERIAL PRIMARY KEY,
+  category_id BIGSERIAL PRIMARY KEY,
   category_name VARCHAR(255),
   number_of_blogs INTEGER
 );
 
 CREATE TABLE blogs(
-    blog_id SERIAL PRIMARY KEY,
+    blog_id BIGSERIAL PRIMARY KEY,
     title VARCHAR(50),
     description VARCHAR(256),
     body text,
@@ -40,7 +39,7 @@ CREATE TABLE blogs(
     isFeatured BOOLEAN
 );
 CREATE TABLE tags(
-  tags_id SERIAL PRIMARY KEY,
+  tags_id BIGSERIAL PRIMARY KEY,
   tags_name VARCHAR(255)
 );
 
@@ -49,8 +48,8 @@ CREATE TABLE blog_tags(
   blog_id INT ,
   tags_id INT ,
   PRIMARY KEY (blog_id, tags_id),
-  FOREIGN KEY(blog_id) REFERENCES blogs(blog_id),
-  FOREIGN KEY(tags_id) REFERENCES tags(tags_id),
+  FOREIGN KEY(blog_id) REFERENCES blogs(blog_id)  ON DELETE CASCADE ,
+  FOREIGN KEY(tags_id) REFERENCES tags(tags_id)  ON DELETE CASCADE 
 
 
 
@@ -59,9 +58,9 @@ CREATE TABLE blog_tags(
 CREATE TABLE blog_author(
   blog_id INT,
   author_id INT, 
-  PRIMARY KEY (blog_id, tags_id),
-   FOREIGN KEY(blog_id) REFERENCES blogs(blog_id),
-   FOREIGN KEY(author_id) REFERENCES authors(author_id),
+  PRIMARY KEY (blog_id, author_id),
+   FOREIGN KEY(blog_id) REFERENCES blogs(blog_id)  ON DELETE CASCADE ,
+   FOREIGN KEY(author_id) REFERENCES authors(author_id) ON DELETE CASCADE 
 
  
 );

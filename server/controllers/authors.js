@@ -10,10 +10,10 @@ const addAuthor = async (req, res) => {
        if (error) {
         return res.status(400).send((error.details[0].message).toString());
       }
-      const {firstName, lastName, email, password, image} = req.body;
+      const {fullName, email, password, image} = req.body;
       let author = await pool.query(
-          "INSERT INTO authors (firstName,lastName, email, password, image) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-          [firstName,lastName, email, password, image]
+          "INSERT INTO authors (fullName, email, password, image) VALUES ($1, $2, $3, $4) RETURNING *",
+          [fullName, email, password, image]
       );
       res.status(200).json(author);
    
@@ -37,10 +37,11 @@ const getAllAuthors= async(req, res) => {
 // get author by name
 const getAuthorByName = async (req, res) =>{
   try{ 
-       const {firstName, lastName} = req.params;
+       const {fullName} = req.params;
+      console.log(fullName);
        const author = await pool.query(
-         "SELECT * FROM authors WHERE firstName = $1, lastName = $2 ",
-        [firstName, lastName]);
+         "SELECT * FROM authors WHERE fullName = $1 ",
+        [fullName]);
        if(author.rows.length === 0){
            console.log("Author not Found");
        }
@@ -83,8 +84,8 @@ const updateAuthor = async (req, res)=>{
     console.log( req.body);
 
     let authors = await pool.query(
-      "UPDATE authors SET firstName = $1, lastName = $2, email = $3, password = $4, image = $5 WHERE author_id= $6",
-      [firstName, lastName, email, password, image, author_id]
+      "UPDATE authors SET fullName = $1, email = $2, password = $3, image = $4 WHERE author_id= $5",
+      [fullName, email, password, image, author_id]
     );
     console.log(authors);
     res.status(200).json(authors);
