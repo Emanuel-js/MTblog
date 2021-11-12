@@ -25,6 +25,16 @@ getAllBlogs,
     deleteBlog
 } = require('../controllers/blogs');
 
+
+const{
+    addTag,
+    getAllTags,
+    getTagById,
+    getTagByName,
+    updateTag,
+    deleteTag
+} = require('../controllers/tags');
+
 const{
     loginAdmin,
     registerAdmin, 
@@ -48,6 +58,15 @@ router.get('/category/:id', getCategoryById);
 router.post('/category', addCategory);
 router.put('/category/:id', updateCategory);
 router.delete('/category/:id', deleteCategory);
+
+//tags endpoints
+
+router.get('/tags', getAllTags)
+router.get('/tags/:id', getTagById);
+router.get('/tags/:name', getTagByName);
+router.post('/tags', addTag);
+router.put('/tags/:id', updateTag);
+router.delete('/tags/:id', deleteTag);
 
 //blog end points
 router.get('/blogs', getAllBlogs)

@@ -97,4 +97,4 @@ const deleteTag = async (req, res)=>{
 
 };
 
-module.exports = {addCategory, getAllCategories, getCategoryById, updateCategory, deleteCategory};
+module.exports = {addTag, getAllTags, getTagById, getTagByName, updateTag, deleteTag};
