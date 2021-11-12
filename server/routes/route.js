@@ -2,6 +2,7 @@ const express = require('express');
 
 const {
     addAuthor, 
+    getAuthorByName,
     getAuthorById,
     getAllAuthors,
     updateAuthor,
@@ -37,6 +38,7 @@ const router= express.Router();
 // authors end points
 router.get('/authors',getAllAuthors)
 router.get('/author/:id', getAuthorById);
+router.get('/author/:name', getAuthorByName);
 router.post('/author', addAuthor);
 router.put('/author/:id', updateAuthor);
 router.delete('/author/:id', deleteAuthor);

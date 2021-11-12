@@ -33,6 +33,22 @@ const getAllAuthors= async(req, res) => {
     }
 
 };
+
+// get author by name
+const getAuthorByName = async (req, res) =>{
+  try{ 
+       const {firstName, lastName} = req.params;
+       const author = await pool.query(
+         "SELECT * FROM authors WHERE firstName = $1, lastName = $2 ",
+        [firstName, lastName]);
+       if(author.rows.length === 0){
+           console.log("Author not Found");
+       }
+       res.json(author.rows)
+   } catch(error){
+       console.log(error.message);
+   }
+};
 //  read author by id
 const getAuthorById= async(req, res) => {
    
@@ -93,4 +109,4 @@ const deleteAuthor = async  (req, res)=>{
   }
 }
 
-module.exports = {addAuthor, getAuthorById, getAllAuthors,deleteAuthor,updateAuthor};
+module.exports = {addAuthor, getAuthorByName, getAuthorById, getAllAuthors,deleteAuthor,updateAuthor};

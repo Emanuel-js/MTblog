@@ -19,10 +19,6 @@ CREATE TABLE authors(
   image VARCHAR(255)
 );
 
-CREATE TABLE tags(
-  tags_id SERIAL PRIMARY KEY,
-  tags_name VARCHAR(255)
-);
 
 CREATE TABLE  categories(
   category_id SERIAL PRIMARY KEY,
@@ -38,10 +34,34 @@ CREATE TABLE blogs(
     image VARCHAR(1000),
     -- tags_id TEXT REFERENCES tags(tags_id),
     isPublished BOOLEAN,
-    author_id INT REFERENCES authors(author_id),
+    -- author_id INT REFERENCES authors(author_id),
     category_id INT REFERENCES categories(category_id),
     date_created TIMESTAMP,
     isFeatured BOOLEAN
 );
+CREATE TABLE tags(
+  tags_id SERIAL PRIMARY KEY,
+  tags_name VARCHAR(255)
+);
 
 
+CREATE TABLE blog_tags(
+  blog_id INT ,
+  tags_id INT ,
+  PRIMARY KEY (blog_id, tags_id),
+  FOREIGN KEY(blog_id) REFERENCES blogs(blog_id),
+  FOREIGN KEY(tags_id) REFERENCES tags(tags_id),
+
+
+
+);
+
+CREATE TABLE blog_author(
+  blog_id INT,
+  author_id INT, 
+  PRIMARY KEY (blog_id, tags_id),
+   FOREIGN KEY(blog_id) REFERENCES blogs(blog_id),
+   FOREIGN KEY(author_id) REFERENCES authors(author_id),
+
+ 
+);
