@@ -57,7 +57,7 @@ const updateCategory = async (req, res)=>{
         const {category_name, number_of_blogs} = req.body;
         let category = await pool.query(
             "UPDATE categories SET category_name = $1, number_of_blogs = $2 WHERE category_id = $3",
-            [category_name, number_of_blogs]
+            [category_name, number_of_blog, category_id]
         );
         
     } catch (error) {
