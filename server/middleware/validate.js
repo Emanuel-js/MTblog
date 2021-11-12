@@ -1,11 +1,11 @@
-const Joi = require('@hapi/joi');
+const Joi = require('@hapi/joi');;
 
 const registerAdminValidation=(data)=>{
     const schema ={
         firstName: Joi.string().min(2).required(),
         lastName: Joi.string().min(2).required(),
         email: Joi.string().min(6).required().email(),
-        password: Joi.pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+        password: Joi.string().min(6).required(),
 
 
     }
@@ -17,7 +17,7 @@ const registerAuthorValidation=(data)=>{
         firstName: Joi.string().min(2).required(),
         lastName: Joi.string().min(2).required(),
         email: Joi.string().min(6).required().email(),
-        password: Joi.pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+        password: Joi.string().min(6).required(),
         image: Joi.string().min(4).required(),
 
 
@@ -48,7 +48,8 @@ const registerBlogValidation=(data)=>{
 const loginAdminValidation=(data)=>{
     const schema ={
         email: Joi.string().min(6).required().email(),
-        password: Joi.pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+        // password: Joi.pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+        password: Joi.string().min(6).required(),
 
     };
 
